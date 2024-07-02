@@ -4,10 +4,13 @@ from selenium.webdriver.common.by import By
 
 class TestSimpleWebsite(unittest.TestCase):
 
+   from selenium import webdriver
+
+class TestSimpleWebsite(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        cls.driver = webdriver.Chrome()
-        cls.driver.get("i/Users/erikb/Desktop/demo/index.html")  # Replace with the correct path to your index.html file
+        chrome_driver_path = '/usr/local/bin/chromedriver'
+        cls.driver = webdriver.Chrome(executable_path=chrome_driver_path)
 
     @classmethod
     def tearDownClass(cls):
