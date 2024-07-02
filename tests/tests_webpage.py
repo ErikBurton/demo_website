@@ -7,7 +7,7 @@ class TestSimpleWebsite(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         cls.driver = webdriver.Chrome()
-        cls.driver.get("file:///path/to/your/simple-website/index.html")  # Replace with the correct path to your index.html file
+        cls.driver.get("i/Users/erikb/Desktop/demo/index.html")  # Replace with the correct path to your index.html file
 
     @classmethod
     def tearDownClass(cls):
