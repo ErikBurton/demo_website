@@ -4,7 +4,7 @@ on: [push]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # or macos-latest if you are running on macOS
 
     steps:
     - name: Checkout code
@@ -20,7 +20,8 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Install dependencies
+    - name: Install dependencies on Ubuntu
+      if: runner.os == 'Linux'
       run: |
         sudo apt-get update
         sudo apt-get install -y wget unzip xvfb libxi6 libgconf-2-4
@@ -28,6 +29,21 @@ jobs:
         sudo apt-get install -y ./google-chrome-stable_current_amd64.deb
         wget https://chromedriver.storage.googleapis.com/91.0.4472.101/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/local/bin/
+        sudo chmod +x /usr/local/bin/chromedriver
+        pip install -r requirements.txt
+        pip install selenium
+
+    - name: Install dependencies on macOS
+      if: runner.os == 'macOS'
+      run: |
+        brew update
+        brew install wget unzip xvfb
+        wget https://dl.google.com/chrome/mac/stable/GGRO/googlechrome.dmg
+        sudo hdiutil attach googlechrome.dmg
+        sudo cp -r /Volumes/Google\ Chrome/Google\ Chrome.app /Applications/
+        wget https://chromedriver.storage.googleapis.com/91.0.4472.101/chromedriver_mac64.zip
+        unzip chromedriver_mac64.zip
         sudo mv chromedriver /usr/local/bin/
         sudo chmod +x /usr/local/bin/chromedriver
         pip install -r requirements.txt
@@ -42,7 +58,15 @@ jobs:
         ls -al /usr/local/bin/
         echo $PATH
 
-    - name: Run tests
+    - name: Run tests on Ubuntu
+      if: runner.os == 'Linux'
+      run: |
+        xvfb-run -a python -m unittest discover -s tests
+      env:
+        PATH: /usr/local/bin:$PATH
+
+    - name: Run tests on macOS
+      if: runner.os == 'macOS'
       run: |
         xvfb-run -a python -m unittest discover -s tests
       env:
