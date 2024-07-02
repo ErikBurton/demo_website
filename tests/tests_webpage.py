@@ -11,6 +11,7 @@ class TestSimpleWebsite(unittest.TestCase):
         options.add_argument('--headless')
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
+        options.add_argument('--remote-debugging-port=9222')
         cls.driver = webdriver.Chrome(executable_path=chrome_driver_path, options=options)
 
     @classmethod
@@ -18,7 +19,6 @@ class TestSimpleWebsite(unittest.TestCase):
         cls.driver.quit()
 
     def test_change_text(self):
-        # Update the path to the HTML file
         file_path = os.path.abspath("/Users/erikb/Desktop/demo/index.html")
         self.driver.get(f"file://{file_path}")
         button = self.driver.find_element("id", "change-text-btn")

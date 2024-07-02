@@ -28,6 +28,12 @@ jobs:
         pip install -r requirements.txt
         pip install selenium
 
+    - name: Debug Chrome installation
+      run: |
+        google-chrome --version
+        chromedriver --version
+        ls -al /usr/local/bin/
+
     - name: Run tests
       run: python -m unittest discover -s tests
       env:
