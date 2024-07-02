@@ -1,7 +1,8 @@
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options
 import unittest
 import os
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 
 class TestSimpleWebsite(unittest.TestCase):
     @classmethod
@@ -12,7 +13,8 @@ class TestSimpleWebsite(unittest.TestCase):
         options.add_argument('--no-sandbox')
         options.add_argument('--disable-dev-shm-usage')
         options.add_argument('--remote-debugging-port=9222')
-        cls.driver = webdriver.Chrome(executable_path=chrome_driver_path, options=options)
+        service = Service(executable_path=chrome_driver_path)
+        cls.driver = webdriver.Chrome(service=service, options=options)
 
     @classmethod
     def tearDownClass(cls):
