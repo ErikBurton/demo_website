@@ -1,0 +1,17 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+h1 {
+    color: blue;
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+}
