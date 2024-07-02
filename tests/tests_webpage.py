@@ -1,7 +1,7 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 import unittest
 import os
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 
 class TestSimpleWebsite(unittest.TestCase):
     @classmethod
@@ -27,4 +27,6 @@ class TestSimpleWebsite(unittest.TestCase):
         self.assertEqual(message.text, "Text Changed!")
 
 if __name__ == "__main__":
-    unittest.main()
+    with open("test_results.txt", "w") as f:
+        runner = unittest.TextTestRunner(f)
+        unittest.main(testRunner=runner)

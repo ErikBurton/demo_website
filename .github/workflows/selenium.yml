@@ -28,13 +28,13 @@ jobs:
         pip install -r requirements.txt
         pip install selenium
 
-    - name: Debug Chrome installation
-      run: |
-        google-chrome --version
-        chromedriver --version
-        ls -al /usr/local/bin/
-
     - name: Run tests
       run: python -m unittest discover -s tests
       env:
         PATH: /usr/local/bin:$PATH
+
+    - name: Upload test results
+      uses: actions/upload-artifact@v2
+      with:
+        name: test-results
+        path: test_results.txt
